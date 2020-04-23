@@ -1,8 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import _ from 'lodash';
+import Cards from '../Cards/Cards';
+import Chart from '../Chart/Chart';
+import CountryPicker from '../CountryPicker/CountryPicker';
+import { fetchCountries, fetchCovid19Data, fetchDailyData } from '../../utils/api';
+
+import image from '../../assit/image.png'
+import styles from './Home.module.css';
 
 const Home = () => {
+    const [covid19Data, setCovid19Data] = useState({});
+    const [countries, setCountries] = useState([]);
+    const [country, setCountry] = useState('');
+    const [dailyData, setDailyData] = useState([]);
+
+    useEffect(() => {
+        async function fetchCountriesHelper() {
+          setCountries(await fetchCountries());
+        }
+        fetchCountriesHelper(); 
+      }, []);
+
+    useEffect(() => {
+        async function fetchCovid19DataHelper(country) {
+            setCovid19Data(await fetchCovid19Data(country));
+        }
+        fetchCovid19DataHelper(country); 
+    }, [country]);
+
+    useEffect(() => {
+        async function fetchDailyDataHelper() {
+            setDailyData(await fetchDailyData())
+        }
+        fetchDailyDataHelper();
+    }, []);
+
+    const handleCountryChange = (event) => {
+        console.log(event);
+        const newCountry = event.target.value || "";
+        setCountry(newCountry);
+    }    
+
     return (
-        <h1>Home</h1>
+        <div className={styles.container}>
+            <div className={styles.imageContainer}>
+                <img className={styles.image} src={image} alt="covid-19" />
+            </div>
+            <Cards covid19Data={covid19Data} />
+            <CountryPicker countries={countries} handleCountryChange={handleCountryChange} />
+            <Chart country={country} dailyData={dailyData} covid19Data={covid19Data}/>
+        </div>
     );
 }
 

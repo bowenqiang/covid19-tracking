@@ -1,0 +1,27 @@
+.container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.cardWrapper {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.card {
+    border-radius: 4px;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+}
+
+.infected {
+    border-bottom: 4px #0b83e6 solid;
+    
+}
+
+.recovered {
+    border-bottom: 4px #12e02d solid;
+}
+
+.deaths {
+    border-bottom: 4px #e82b09 solid;
+}
