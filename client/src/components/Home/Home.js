@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import _ from 'lodash';
 import Cards from '../Cards/Cards';
 import Chart from '../Chart/Chart';
 import CountryPicker from '../CountryPicker/CountryPicker';
@@ -23,7 +22,9 @@ const Home = () => {
 
     useEffect(() => {
         async function fetchCovid19DataHelper(country) {
-            setCovid19Data(await fetchCovid19Data(country));
+            setCovid19Data(await fetchCovid19Data(country, () => {
+                alert("Sorry, We don't have any data for selected country/area yet");
+            }));
         }
         fetchCovid19DataHelper(country); 
     }, [country]);
@@ -36,10 +37,11 @@ const Home = () => {
     }, []);
 
     const handleCountryChange = (event) => {
-        console.log(event);
         const newCountry = event.target.value || "";
         setCountry(newCountry);
-    }    
+        setCovid19Data({});
+        setDailyData([]);
+    }
 
     return (
         <div className={styles.container}>
