@@ -23,7 +23,6 @@ export const fetchCovid19Data = async (country, callback) => {
         const { data: { confirmed, recovered, deaths, lastUpdate }} = await axios(url);
         return { confirmed, recovered, deaths, lastUpdate };
     } catch (error) {
-        // return error;
         if(callback) {
             callback(error);
         }
