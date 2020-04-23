@@ -15,7 +15,9 @@ const Home = () => {
 
     useEffect(() => {
         async function fetchCountriesHelper() {
-          setCountries(await fetchCountries());
+          setCountries(await fetchCountries(() => {
+            alert("Sorry, We don't have any data for selected country/area yet");
+            }));
         }
         fetchCountriesHelper(); 
       }, []);
@@ -31,7 +33,9 @@ const Home = () => {
 
     useEffect(() => {
         async function fetchDailyDataHelper() {
-            setDailyData(await fetchDailyData())
+            setDailyData(await fetchDailyData(() => {
+                alert("Sorry, We don't have any data for selected country/area yet");
+            }))
         }
         fetchDailyDataHelper();
     }, []);

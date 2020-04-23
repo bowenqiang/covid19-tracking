@@ -1,9 +1,9 @@
 import _ from 'lodash';
 export const chartDataHelper = (dailyData, covid19Data, isGlobal) => {
-    if (dailyData.length === 0 || _.isEmpty(covid19Data)) {
-        return {};
-    }
     if (isGlobal) {
+        if (!dailyData.length) {
+            return {};
+        }
         let data = {
             labels: dailyData.map(data => data.reportDate),
             datasets: [
@@ -41,6 +41,9 @@ export const chartDataHelper = (dailyData, covid19Data, isGlobal) => {
         }
         return data;
     } else {
+        if (_.isEmpty(covid19Data)) {
+            return {};
+        }
         let data = {
             labels: ['Confirmed', 'Recovered', 'Deaths'],
             datasets: [
