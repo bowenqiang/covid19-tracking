@@ -1,11 +1,14 @@
 import axios from 'axios';
-const ENDPOINT = 'https://covid19.mathdro.id/api';
+import { parseDailyData } from './utils';
+
+const ENDPOINT = 'https://api.covid19api.com';
+const ENDPOINT2 = 'https://covid19.mathdro.id/api';
 
 export const fetchCountries = async (callback) => {
     let url = `${ENDPOINT}/countries`;
     try {
         const { data : countries } = await axios(url);
-        return countries;
+        return countries.sort((a, b) => a.Country > b.Country ? 1 : -1);
     } catch (error) {
         if(callback) {
             callback(error);
@@ -14,14 +17,11 @@ export const fetchCountries = async (callback) => {
     }
 }
 
-export const fetchCovid19Data = async (country, callback) => {
-    let url = ENDPOINT;
-    if (country && country !== 'Global') {
-        url = `${url}/countries/${country}`;
-    }
+export const fetchCovid19Data = async (callback) => {
+    let url = `${ENDPOINT}/summary`;
     try {
-        const { data: { confirmed, recovered, deaths, lastUpdate }} = await axios(url);
-        return { confirmed, recovered, deaths, lastUpdate };
+        const { data : covid19Data } = await axios(url);
+        return covid19Data;
     } catch (error) {
         if(callback) {
             callback(error);
@@ -30,11 +30,16 @@ export const fetchCovid19Data = async (country, callback) => {
     }
 }
 
-export const fetchDailyData = async (callback) => {
-    let url = `${ENDPOINT}/daily`;
+export const fetchDailyData = async (country, callback) => {
+    let url = '';
+    if (country === 'Global') {
+        url = `${ENDPOINT2}/daily`
+    } else {
+        url = `${ENDPOINT}/total/country/${country}`;
+    }
     try {
         const { data } = await axios(url);
-        return data;
+        return parseDailyData(country, data);
     } catch (error) {
         if(callback) {
             callback(error);
