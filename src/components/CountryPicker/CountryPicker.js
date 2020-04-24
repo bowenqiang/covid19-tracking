@@ -4,8 +4,7 @@ import { Grid, FormControl, InputLabel, Select, MenuItem } from '@material-ui/co
 
 const CountryPicker = ({countries, handleCountryChange}) => {
 
-    const countriesData = countries.countries || [];
-
+    const countriesData = countries || [];
     return (
         <section className={styles.container}>
             <Grid container justify="center">
@@ -16,7 +15,7 @@ const CountryPicker = ({countries, handleCountryChange}) => {
                             <MenuItem value="Global" key={0}>Global</MenuItem>
                             {   
                                 countriesData.map((country, index) => (
-                                <MenuItem value={country.name} key={index + 1}>{country.name}</MenuItem>
+                                <MenuItem value={country.Slug} key={index + 1}>{country.Country}</MenuItem>
                                 ))
                             }
                         </Select>
