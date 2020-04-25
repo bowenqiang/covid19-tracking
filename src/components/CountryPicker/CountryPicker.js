@@ -8,7 +8,7 @@ const CountryPicker = ({countries, handleCountryChange}) => {
     return (
         <section className={styles.container}>
             <Grid container justify="center">
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <FormControl className={styles.form}>
                         <InputLabel>Country</InputLabel>
                         <Select defaultValue="Global" onChange={handleCountryChange}>
