@@ -13,6 +13,8 @@ export const chartDataHelper = (dailyData, covid19Data, lineOrPie) => {
                     borderColor: "#0b83e6",
                     borderWidth: 2,
                     spanGaps: true,
+                    pointRadius: 2,
+                    pointHoverRadius: 2,
                     data: dailyData.map(data => data.confirmed),
                 },
                 {
@@ -23,6 +25,8 @@ export const chartDataHelper = (dailyData, covid19Data, lineOrPie) => {
                     borderColor: "#12e02d",
                     borderWidth: 2,
                     spanGaps: true,
+                    pointRadius: 2,
+                    pointHoverRadius: 2,
                     data: dailyData.map(data => data.recovered),
                 },
                 {
@@ -33,6 +37,8 @@ export const chartDataHelper = (dailyData, covid19Data, lineOrPie) => {
                     borderColor: "#e82b09",
                     borderWidth: 2,
                     spanGaps: true,
+                    pointRadius: 2,
+                    pointHoverRadius: 2,
                     data: dailyData.map(data => data.deaths),
                 }
             ]
